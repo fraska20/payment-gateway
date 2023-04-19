@@ -1,0 +1,21 @@
+{
+  "name": "payment-gateway",
+  "version": "1.0.0",
+  "description": "payment gateway with xendit",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jipies",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "xendit-node": "^1.21.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
