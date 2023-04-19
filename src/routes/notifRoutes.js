@@ -1,7 +1,8 @@
 import express from "express";
 const router = express.Router();
-import { invoice } from "../controllers/notifControllers.js";
+import { customer, invoice } from "../controllers/notifControllers.js";
 
-router.post("/invoice", invoice);
+router.post("/notifikasi/invoice", invoice);
+router.post("/notifikasi/customer", customer);
 
 export default router;

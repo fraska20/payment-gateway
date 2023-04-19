@@ -4,14 +4,16 @@ const { Customer } = Xendit;
 const c = new Customer();
 
 export const postCustomer = (req, res) => {
+  const {givenNames,email,mobileNumber,surname,middleName} = req.body;
+
   c.createCustomer({
     referenceID: new Date().toISOString(),
-    givenNames: "customer 1",
-    email: "customer@website.com",
-    mobileNumber: "+6281212345678",
+    givenNames,
+    email,
+    mobileNumber,
     description: "dummy customer",
-    middleName: "middle",
-    surname: "surname",
+    middleName,
+    surname,
     addresses: [],
     apiVersion: "2020-05-19",
   })
@@ -19,8 +21,8 @@ export const postCustomer = (req, res) => {
       res.json(r);
     })
     .catch((e) => {
-      res.json(e);
-      process.exit(1);
+      console.error(e);
+      res.status(400).json({ error: e.message });
     });
 };
 
@@ -32,7 +34,7 @@ export const getCustomer = (req, res) => {
       res.json(r);
     })
     .catch((e) => {
-      res.json(e);
-      process.exit(1);
+      console.error(e);
+      res.status(404).json({ message: e.message })
     });
 };

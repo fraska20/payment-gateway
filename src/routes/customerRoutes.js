@@ -5,7 +5,7 @@ import {
   getCustomer,
 } from "../controllers/customerControllers.js";
 
-router.post("/", postCustomer);
-router.get("/:id", getCustomer);
+router.post("/customer", postCustomer);
+router.get("/customer/:id", getCustomer);
 
 export default router;

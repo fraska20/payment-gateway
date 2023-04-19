@@ -1,19 +1,22 @@
 import express from "express";
+import bodyParser from 'body-parser';
+import dotenv from "dotenv";
+dotenv.config();
 
 // Express setup
 let app = express();
-app.use(express.urlencoded({ extended: true })); // to support URL-encoded POST body
-app.use(express.json()); // to support parsing JSON POST body
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 import customerRoutes from "./src/routes/customerRoutes.js";
-app.use("/customer", customerRoutes);
+app.use("/", customerRoutes);
 
 import invoiceRoutes from "./src/routes/invoiceRoutes.js";
-app.use("/invoice", invoiceRoutes);
+app.use("/", invoiceRoutes);
 
 import notifRoutes from "./src/routes/notifRoutes.js";
-app.use("/notifikasi", notifRoutes);
+app.use("/", notifRoutes);
 
-app.listen(5000, () => {
-  console.log("Server Berjalan di Port : 5000");
+app.listen(process.env.PORT, () => {
+  console.log("Server Berjalan di Port : "+process.env.PORT);
 });
