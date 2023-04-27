@@ -35,7 +35,7 @@ export const postInvoice = async (req, res) => {
       data: result,
     });
   } catch (error) {
-    console.error(e);
+    console.error(error);
     // Send error response
     res.status(500).json({ error: error.message });
   }

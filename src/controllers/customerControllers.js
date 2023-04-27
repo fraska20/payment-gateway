@@ -3,38 +3,41 @@ import Xendit from "../xendit.js";
 const { Customer } = Xendit;
 const c = new Customer();
 
-export const postCustomer = (req, res) => {
-  const {givenNames,email,mobileNumber,surname,middleName} = req.body;
+export const postCustomer = async (req, res) => {
+  try {
+    const { referenceID, givenNames, email, mobileNumber } = req.body;
 
-  c.createCustomer({
-    referenceID: new Date().toISOString(),
-    givenNames,
-    email,
-    mobileNumber,
-    description: "dummy customer",
-    middleName,
-    surname,
-    addresses: [],
-    apiVersion: "2020-05-19",
-  })
-    .then((r) => {
-      res.json(r);
-    })
-    .catch((e) => {
-      console.error(e);
-      res.status(400).json({ error: e.message });
+    let customer = await c.createCustomer({
+      referenceID,
+      givenNames,
+      email,
+      mobileNumber,
+      date_of_registration: new Date().toISOString(),
+      apiVersion: "2020-05-19",
     });
+    console.log("created customer", customer); // eslint-disable-line no-console
+
+    res.status(201).json({
+      message: "Invoice created successfully",
+      data: customer,
+    });
+  } catch (error) {
+    console.error(error);
+    // Send error response
+    res.status(400).json({ error: error.message });
+  }
 };
 
-export const getCustomer = (req, res) => {
-  c.getCustomerByReferenceID({
-    referenceID: req.params.id,
-  })
-    .then((r) => {
-      res.json(r);
-    })
-    .catch((e) => {
-      console.error(e);
-      res.status(404).json({ message: e.message })
+export const getCustomer = async (req, res) => {
+  try {
+    const customers = await c.getCustomerByReferenceID({
+      referenceID: req.params.id,
+      apiVersion: "2020-05-19",
     });
+    // eslint-disable-next-line no-console
+    console.log("retrieved customers", customers);
+  } catch (error) {
+    console.error(error);
+    res.status(404).json({ message: error.message });
+  }
 };

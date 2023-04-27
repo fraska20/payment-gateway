@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Express setup
-let app = express();
+const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -20,6 +20,6 @@ app.use("/", invoiceRoutes);
 import notifRoutes from "./src/routes/notifRoutes.js";
 app.use("/", notifRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log("Server Berjalan di Port : " + process.env.PORT);
+app.listen(process.env.API_PORT, () => {
+  console.log(`Server Berjalan di Port : ${process.env.API_PORT}`);
 });
